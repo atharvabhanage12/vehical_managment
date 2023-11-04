@@ -1,0 +1,29 @@
+{
+  "canisters": {
+    "vehical_managment_backend": {
+      "main": "src/vehical_managment_backend/main.mo",
+      "type": "motoko"
+    },
+    "vehical_managment_frontend": {
+      "dependencies": [
+        "vehical_managment_backend"
+      ],
+      "frontend": {
+        "entrypoint": "src/vehical_managment_frontend/src/index.html"
+      },
+      "source": [
+        "src/vehical_managment_frontend/assets",
+        "dist/vehical_managment_frontend/"
+      ],
+      "type": "assets"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1
+}
