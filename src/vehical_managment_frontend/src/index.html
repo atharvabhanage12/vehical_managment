@@ -1,24 +1,185 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>vehical_managment</title>
-    <base href="/" />
-    <link rel="icon" href="favicon.ico" />
-    <link type="text/css" rel="stylesheet" href="main.css" />
-  </head>
-  <body>
-    <main>
-      <img src="logo2.svg" alt="DFINITY logo" />
-      <br />
-      <br />
-      <form action="#">
-        <label for="name">Enter your name: &nbsp;</label>
-        <input id="name" alt="Name" type="text" />
-        <button type="submit">Click Me!</button>
-      </form>
-      <section id="greeting"></section>
-    </main>
-  </body>
+<head>
+ <title>Vehical Managment</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        main {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="file"] {
+            margin-bottom: 10px;
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        #collectedData {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .form-box {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .input-box,
+        .button-box {
+            width: 48%;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+        }
+
+        /* Additional CSS for the result container */
+        #resultContainer {
+            background-color: #e6e6e6; /* Set your desired background color */
+            border-radius: 10px; /* Add curved edges */
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        #checkDetailsButton {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        #checkDetailsButton:hover {
+            background-color: #0056b3;
+        }
+    </style>
+   
+</head>
+<body>
+<main>
+    <form id="inputForm">
+        <!-- Vehicle Number Input -->
+        <label for="vehicalNumberUser_store">Enter Vehicle Number: </label>
+        <input type="text" id="vehicalNumberUser_store" required>
+
+        <!-- Image Upload -->
+        <label for="input_image_right">Upload Right Image: </label>
+        <input type="file" id="input_image_right" accept="image/*" required>
+
+        <label for="input_image_left">Upload Left Image: </label>
+        <input type="file" id="input_image_left" accept="image/*" required>
+
+        <label for="input_image_front">Upload Front Image: </label>
+        <input type="file" id="input_image_front" accept="image/*" required>
+
+        <label for="input_image_back">Upload Back Image: </label>
+        <input type="file" id="input_image_back" accept="image/*" required>
+
+        <label for="input_image_adhaar_curr_rider">Upload Adhaar Image: </label>
+        <input type="file" id="input_image_adhaar_curr_rider" accept="image/*" required>
+        <!-- End Image Upload -->
+
+        <!-- Date Picker -->
+        <label for="datePicker">Select a Date: </label>
+        <input type="date" id="datePicker" required>
+        <!-- End Date Picker -->
+
+        <!-- Map Details -->
+        <label for="mapDetails">Enter Map Details: </label>
+        <input type="text" id="mapDetails" required>
+        <!-- End Map Details -->
+
+        <label for="servicingDetails">Enter service Details: </label>
+        <input type="text" id="servicingDetails" required>
+
+        <!-- Owner Details -->
+        <label for="ownerDetails">Enter Owner Details: </label>
+        <input type="text" id="ownerDetails" required>
+        <!-- End Owner Details -->
+
+        <!-- Integer Input -->
+        <label for "integerInput">Enter an Integer: </label>
+        <input type="number" id="integerInput" required>
+        <!-- End Integer Input -->
+
+        <!-- Vehicle Name -->
+        <label for="vehicleName">Enter Vehicle Name: </label>
+        <input type="text" id="vehicleName" required>
+        <!-- End Vehicle Name -->
+
+        <input type="submit" value="Submit">
+    </form>
+
+    <div id="resultContainer"> <!-- New container for the result section -->
+        <div class="form-box">
+            <div class="input-box">
+                <!-- Display -->
+                <label for="vehicleNumber">Enter Vehicle Number: </label>
+                <input type="text" id="vehicleNumber" required>
+            </div>
+            <div class="button-box">
+                <!-- Check Details of Registered Vehicle -->
+                <button id="checkDetailsButton">Check Details of Registered Vehicle</button>
+            </div>
+        </div>
+
+        <!-- Display all -->
+        <div id="collectedData" style="display: none;">
+            <h2>Collected Data</h2>
+            <div id="displayImages"></div>
+            <div id="displayTextData"></div>
+            <div id="displayMapDetails"></div>
+            <div id="displayOwnerDetails"></div>
+            <div id="displayInteger"></div>
+            <div id="displayVehicleName"></div>
+        </div>
+    </div>
+</main>
+<script src="script.js"></script>
+</body>
 </html>
