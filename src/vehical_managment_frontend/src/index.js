@@ -2,8 +2,8 @@ import { vehical_managment_backend } from "../../declarations/vehical_managment_
 
 // Initialize an empty array to store the images
 let imageArray = [];
-let ww;
-let lele;
+let ww=10;
+let lele=10;
 // Function to convert an image to an integer array
 function imageToIntArray(imageElement) {
   imageArray=[];
@@ -314,12 +314,13 @@ const imageRight = document.getElementById("input_image_right").files[0];
       console.log("Back Image:", intArrays[3]);
       console.log("Adhaar Image:", intArrays[4]);
 
-      await vehical_managment_backend.register_vehical_details(enteredVehicalnumber_store,
+      await vehical_managment_backend.register_vehical_details(
+        enteredVehicalnumber_store,
         intArrays[2],
         intArrays[3],
         intArrays[0],
         intArrays[1],
-        enteredServicingDetails,
+        selectedDate,
         mapDetails,
         ownerDetails,
         enteredInteger.toString(),
@@ -422,22 +423,41 @@ document.addEventListener("DOMContentLoaded", function () {
 
 ////
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async function () {
   const collectedDataSection = document.getElementById("collectedData");
   const checkDetailsButton = document.getElementById("checkDetailsButton");
-
-  checkDetailsButton.addEventListener("click", function () {
+  
+  checkDetailsButton.addEventListener("click", async function () {
+    const vehicalNum_txt = document.getElementById("vehicleNumber").value;
+    console.log(vehicalNum_txt);
     // Get values from input fields
-    const imageRight = document.getElementById("input_image_right").files[0];
+    const imageRight = await vehical_managment_backend.print_side_R_image(vehicalNum_txt);
     const imageLeft = document.getElementById("input_image_left").files[0];
     const imageFront = document.getElementById("input_image_front").files[0];
     const imageBack = document.getElementById("input_image_back").files[0];
     const imageAdhaar = document.getElementById("input_image_adhaar_curr_rider").files[0];
-    const selectedDate = document.getElementById("datePicker").value;
-    const mapDetails = document.getElementById("mapDetails").value;
-    const ownerDetails = document.getElementById("ownerDetails").value;
-    const enteredInteger = document.getElementById("integerInput").value;
-    const enteredVehicleName = document.getElementById("vehicleName").value;
+    //const imageRight = document.getElementById("input_image_right").files[0];
+    
+
+
+
+
+    ////
+
+    intArrayToImageAndSet(imageRight,displayImages);
+
+
+    ///
+    const selectedDate =  await vehical_managment_backend.print_last_service(vehicalNum_txt);
+        
+    const mapDetails = await vehical_managment_backend.print_model_details(vehicalNum_txt);
+        
+    const ownerDetails = await vehical_managment_backend.print_owner_name(vehicalNum_txt);
+    
+    const enteredInteger =  await vehical_managment_backend.print_curr_km(vehicalNum_txt);
+        
+    const enteredVehicleName = await vehical_managment_backend.print_vehical_name(vehicalNum_txt);
+        
 
     // Display images if available
     const images = [imageRight, imageLeft, imageFront, imageBack, imageAdhaar];
