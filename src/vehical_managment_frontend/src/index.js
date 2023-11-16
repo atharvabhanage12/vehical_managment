@@ -2,8 +2,8 @@ import { vehical_managment_backend } from "../../declarations/vehical_managment_
 
 // Initialize an empty array to store the images
 let imageArray = [];
-let ww=10;
-let lele=10;
+var ww;
+var lele;
 // Function to convert an image to an integer array
 function imageToIntArray(imageElement) {
   imageArray=[];
@@ -13,6 +13,9 @@ function imageToIntArray(imageElement) {
   // Set the canvas size to match the image dimensions
   canvas.width = imageElement.width;
   canvas.height = imageElement.height;
+  ww= canvas.width ;
+  lele= canvas.height;
+  console.log("ww-> " ,ww, "lele-> ", lele," { ",imageElement.width, " } {",imageElement.height);
 
   // Make sure the image is fully loaded
   if (imageElement.complete) {
@@ -30,7 +33,7 @@ function imageToIntArray(imageElement) {
       intArray.push(pixelValue);
     }
     console.log(intArray.length);
-    console.log(intArray);
+    // console.log(intArray);
     return intArray;
   } else {
     // Handle the case where the image is not fully loaded
@@ -43,6 +46,8 @@ function imageToIntArray(imageElement) {
 
 function intArrayToImageAndSet(intArray, imageContainer) {
   // Create a canvas to draw the image data
+
+  console.log("From convert INTARRY  =-> ",intArray.length);
   const canvas = document.createElement('canvas');
   const context = canvas.getContext('2d');
 
@@ -54,9 +59,11 @@ function intArrayToImageAndSet(intArray, imageContainer) {
   canvas.height = lele;
 
   // Create an ImageData object from the integer array
+  console.log("Tyep fo  ara -> ", typeof intArray[0]);
+  
   const imageData = context.createImageData(ww, lele);
   for (let i = 0; i < intArray.length; i++) {
-    const pixelValue = intArray[i];
+    const pixelValue = Number(intArray[i]);
     // Extract RGBA values from the pixelValue
     imageData.data[i * 4] = (pixelValue >> 24) & 0xFF;        // Red
     imageData.data[i * 4 + 1] = (pixelValue >> 16) & 0xFF;    // Green
@@ -66,6 +73,8 @@ function intArrayToImageAndSet(intArray, imageContainer) {
 
   // Put the ImageData onto the canvas
   context.putImageData(imageData, 0, 0);
+
+  //document.body.appendChild(canvas);
 
   // Create a new image element and set its source to the canvas data URL
   const imgElement = new Image();
@@ -356,69 +365,69 @@ document.getElementById("showResultButton").addEventListener("click", function (
 ////
 
 
-//////////
+// //////////
 
-document.addEventListener("DOMContentLoaded", function () {
-  const inputForm = document.getElementById("inputForm");
-  const collectedDataSection = document.getElementById("collectedData");
-  const vehicleNumberInput = document.getElementById("vehicleNumber");
-  const checkDetailsButton = document.getElementById("checkDetailsButton");
+// document.addEventListener("DOMContentLoaded", function () {
+//   const inputForm = document.getElementById("inputForm");
+//   const collectedDataSection = document.getElementById("collectedData");
+//   const vehicleNumberInput = document.getElementById("vehicleNumber");
+//   const checkDetailsButton = document.getElementById("checkDetailsButton");
 
-  checkDetailsButton.addEventListener("click", function () {
-    // Get the entered vehicle number
-    const vehicleNumber = vehicleNumberInput.value;
+//   checkDetailsButton.addEventListener("click", function () {
+//     // Get the entered vehicle number
+//     const vehicleNumber = vehicleNumberInput.value;
 
-    // You can display the vehicle number or perform any additional actions here
-    console.log("Vehicle Number:", vehicleNumber);
+//     // You can display the vehicle number or perform any additional actions here
+//     console.log("Vehicle Number:", vehicleNumber);
 
-    // Display the "Collected Data" section
-    collectedDataSection.style.display = "block";
+//     // Display the "Collected Data" section
+//     collectedDataSection.style.display = "block";
 
-    // You can also clear any previous data displayed here if needed
-  });
+//     // You can also clear any previous data displayed here if needed
+//   });
 
-  inputForm.addEventListener("submit", function (e) {
-    e.preventDefault(); // Prevent the default form submission
+//   inputForm.addEventListener("submit", function (e) {
+//     e.preventDefault(); // Prevent the default form submission
 
-    // Get values from input fields
-    // ...
+//     // Get values from input fields
+//     // ...
 
-    // Example: Display the values in the "Collected Data" section
-    const displayImages = document.getElementById("displayImages");
-    displayImages.innerHTML = `Right Image: ${imageRight}<br> Left Image: ${imageLeft}<br> Front Image: ${imageFront}<br> Back Image: ${imageBack}<br> Adhaar Image: ${imageAdhaar}`;
+//     // Example: Display the values in the "Collected Data" section
+//     const displayImages = document.getElementById("displayImages");
+//     displayImages.innerHTML = `Right Image: ${imageRight}<br> Left Image: ${imageLeft}<br> Front Image: ${imageFront}<br> Back Image: ${imageBack}<br> Adhaar Image: ${imageAdhaar}`;
 
-    const displayDate = document.getElementById("displayDate");
-    displayDate.textContent = `Selected Date: ${selectedDate}`;
+//     const displayDate = document.getElementById("displayDate");
+//     displayDate.textContent = `Selected Date: ${selectedDate}`;
 
-    const displayMapDetails = document.getElementById("displayMapDetails");
-    displayMapDetails.textContent = `Map Details: ${mapDetails}`;
+//     const displayMapDetails = document.getElementById("displayMapDetails");
+//     displayMapDetails.textContent = `Map Details: ${mapDetails}`;
 
-    const displayOwnerDetails = document.getElementById("displayOwnerDetails");
-    displayOwnerDetails.textContent = `Owner Details: ${ownerDetails}`;
+//     const displayOwnerDetails = document.getElementById("displayOwnerDetails");
+//     displayOwnerDetails.textContent = `Owner Details: ${ownerDetails}`;
 
-    const displayInteger = document.getElementById("displayInteger");
-    displayInteger.textContent = `Entered Integer: ${enteredInteger}`;
+//     const displayInteger = document.getElementById("displayInteger");
+//     displayInteger.textContent = `Entered Integer: ${enteredInteger}`;
 
-    const displayVehicleName = document.getElementById("displayVehicleName");
-    displayVehicleName.textContent = `Vehicle Name: ${enteredVehicleName}`;
+//     const displayVehicleName = document.getElementById("displayVehicleName");
+//     displayVehicleName.textContent = `Vehicle Name: ${enteredVehicleName}`;
 
-    // Display images if available
-    const images = [imageRight, imageLeft, imageFront, imageBack, imageAdhaar];
-    const displayImagesDiv = document.getElementById("displayImages");
-    displayImagesDiv.innerHTML = "<h3>Uploaded Images:</h3>";
-    images.forEach((image, index) => {
-      if (image) {
-        const imgElement = document.createElement("img");
-        imgElement.src = URL.createObjectURL(image);
-        imgElement.alt = `Image ${index + 1}`;
-        displayImagesDiv.appendChild(imgElement);
-      }
-    });
+//     // Display images if available
+//     const images = [imageRight, imageLeft, imageFront, imageBack, imageAdhaar];
+//     const displayImagesDiv = document.getElementById("displayImages");
+//     displayImagesDiv.innerHTML = "<h3>Uploaded Images:</h3>";
+//     images.forEach((image, index) => {
+//       if (image) {
+//         const imgElement = document.createElement("img");
+//         imgElement.src = URL.createObjectURL(image);
+//         imgElement.alt = `Image ${index + 1}`;
+//         displayImagesDiv.appendChild(imgElement);
+//       }
+//     });
 
-    // Display the "Collected Data" section
-    collectedDataSection.style.display = "block";
-  });
-});
+//     // Display the "Collected Data" section
+//     collectedDataSection.style.display = "block";
+//   });
+// });
 
 
 ////
@@ -432,10 +441,12 @@ document.addEventListener("DOMContentLoaded", async function () {
     console.log(vehicalNum_txt);
     // Get values from input fields
     const imageRight = await vehical_managment_backend.print_side_R_image(vehicalNum_txt);
-    const imageLeft = document.getElementById("input_image_left").files[0];
-    const imageFront = document.getElementById("input_image_front").files[0];
-    const imageBack = document.getElementById("input_image_back").files[0];
-    const imageAdhaar = document.getElementById("input_image_adhaar_curr_rider").files[0];
+    console.log("image_right output -> ",imageRight);
+    console.log(typeof imageRight);
+    const imageLeft = await vehical_managment_backend.print_side_L_image(vehicalNum_txt);
+    const imageFront =await vehical_managment_backend.print_front_image(vehicalNum_txt);
+    const imageBack = await vehical_managment_backend.print_back_image(vehicalNum_txt);
+    const imageAdhaar = await vehical_managment_backend.print_curr_rider_adhaar(vehicalNum_txt);
     //const imageRight = document.getElementById("input_image_right").files[0];
     
 
@@ -444,9 +455,11 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     ////
 
-    intArrayToImageAndSet(imageRight,displayImages);
-
-
+    intArrayToImageAndSet(imageRight[0],displayImages);
+    intArrayToImageAndSet(imageLeft[0],displayImages);
+    intArrayToImageAndSet(imageFront[0],displayImages);
+    intArrayToImageAndSet(imageBack[0],displayImages);
+    intArrayToImageAndSet(imageAdhaar[0],displayImages);
     ///
     const selectedDate =  await vehical_managment_backend.print_last_service(vehicalNum_txt);
         
@@ -460,18 +473,18 @@ document.addEventListener("DOMContentLoaded", async function () {
         
 
     // Display images if available
-    const images = [imageRight, imageLeft, imageFront, imageBack, imageAdhaar];
-    const displayImagesDiv = document.getElementById("displayImages");
-    displayImagesDiv.innerHTML = "<h3>Uploaded Images:</h3>";
+    // const images = [imageRight, imageLeft, imageFront, imageBack, imageAdhaar];
+    // const displayImagesDiv = document.getElementById("displayImages");
+    // displayImagesDiv.innerHTML = "<h3>Uploaded Images:</h3>";
 
-    images.forEach((image, index) => {
-      if (image) {
-        const imgElement = document.createElement("img");
-        imgElement.src = URL.createObjectURL(image);
-        imgElement.alt = `Image ${index + 1}`;
-        displayImagesDiv.appendChild(imgElement);
-      }
-    });
+    // images.forEach((image, index) => {
+    //   if (image) {
+    //     const imgElement = document.createElement("img");
+    //     imgElement.src = URL.createObjectURL(image);
+    //     imgElement.alt = `Image ${index + 1}`;
+    //     displayImagesDiv.appendChild(imgElement);
+    //   }
+    // });
 
 
     // Display other collected data
